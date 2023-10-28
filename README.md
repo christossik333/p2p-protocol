@@ -3,14 +3,14 @@
 
 ## **Peer-To-Peer** VS standart **Client-Server** model
 
-# A regular **Client-Server** based chat:
+ A regular **Client-Server** based chat:
 
             \<----\                /---->/  
 Client A                Server                Client B 
             /---->/                \<----\
 
 
-# A **Peer-To-Peer** based chat:
+ A **Peer-To-Peer** based chat:
 
 
             /---->/  
