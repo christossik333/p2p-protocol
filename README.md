@@ -36,3 +36,13 @@ All messages come directly and are not forwarded to third parties.
 
 There is also a version in Russian:
 [rusREAME](https://github.com/christossik333/p2p-protocol/blob/main/rusREADME.md)
+
+## Members:
+
+Гвоздев Илья (https://github.com/Kvelmi)
+
+Гончарова Кристина (https://github.com/Kristina-lox)
+
+Макерова Марта (https://github.com/maura45773)
+
+Никитина Кристина (https://github.com/christossik333)
