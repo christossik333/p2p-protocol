@@ -1,4 +1,4 @@
-# p2p-protocol
+# :space_invader: p2p-protocol
 
 ```
 ###############################################################
@@ -11,7 +11,7 @@
 ###############################################################
 ```
 
-"Program Name" is a encrypted **peer-to-peer** messaging platform written in Python.
+:godmode: "Program Name" is a encrypted **peer-to-peer** messaging platform written in Python.
 
 ## **Peer-To-Peer** VS standart **Client-Server** model
 
