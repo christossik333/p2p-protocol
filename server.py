@@ -40,6 +40,7 @@ def receive_msg(client: socket.socket):
         return False 
 
 
+
 #Отслеживание входящих подключений
 while True:
     rs, _, xs = select.select(sockets_list, [] , sockets_list) #сокеты, готовые к чтению/отправке сообщений. 
@@ -74,3 +75,4 @@ while True:
         for _socket in xs: #если в сокете ошибка - удаляем
             sockets_list.remove(_socket)
             del clients_list[_socket]
+

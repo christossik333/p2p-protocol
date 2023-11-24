@@ -1,44 +1,40 @@
-#!/usr/bin/env python3
 import socket
-from threading import Thread
+import sys 
+#Импорт библиотек
+
+#HEADER - const значение, ЗАГОЛОВОК
+HEADER_LENGTH = 10
+HOST = ('localhost',10000)
+
+username = input("Please type a username ").encode('UTF-8')
+s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+s.connect(HOST)
+s.setblocking(0)
+
+header = f"{len(username):<{HEADER_LENGTH}}".encode('UTF-8')
+s.send(header+username)
 
 
-def recv():
-    while True:
-        recv_data = newSocket.recv(1024)
-        recv_msg = recv_data.decode()
-        if recv_msg == 'quit' or 'exit' or 'bye':
-            print('Host want to close the connection')
-            newSocket.close()
-            break
-        print ('>', recv_msg)
+while True:
+    print('Please, write a message')
+    msg = input().encode('UTF-8')
+    if msg: #если на вход поступило сообщение, то кодируем его и отправляем
+        msg_header = f"{len(msg):<{HEADER_LENGTH}}".encode('UTF-8')
+        s.send(msg_header+msg)
+        print(msg_header, msg)
+    try:
+        while True: #Если нам поступает сообщение, содержащее заголовок, то принимаем его, показываем само сообщение и username того, кто отправил
+            user_header =s.recv(HEADER_LENGTH)
+            if not len(user_header):
+                sys.exit()
+            user_lenght = int(user_header.decode('UTF-8').strip())
+            username = s.recv(user_lenght)
 
+            msg_header = s.recv(HEADER_LENGTH)
+            msg_length = int(msg_header.decode('UTF-8').strip())
 
-def send_msg():
-    while True:
-        msg = input(username+'>')
-        if 'quit' or 'exit' or 'bye' in msg:
-            print('Server has been closed')
-            newSocket.close()
-            break
-        newSocket.send(msg.encode())
-    
-newSocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM) #create a socket
-#sock_ip = input('Please input the server IP')
-#sock_port = input('Please input the server port')
-sock_ip = '192.168.94.213' #my local IP
-sock_port = 9490
-username = input('Please input your username')
-newSocket.connect((sock_ip , sock_port))
+            data = s.recv(msg_length).decode('UTF-8')
+            print(f"New message from {username.decode('UTF-8')} - {data}")
+    except IOError as _ex:
+        pass
 
-
-thread_recv = Thread (target = recv)
-thread_send = Thread (target = send_msg)
-thread_send.start()
-thread_recv.start()
-thread_send.join()
-thread_recv.join()
-
-newSocket.close()
-
-newSocket.close()
