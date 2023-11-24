@@ -37,3 +37,4 @@ while True:
             print(f"New message from {username.decode('UTF-8')} - {data}")
     except IOError as _ex:
         pass
+
