@@ -34,7 +34,7 @@ All messages come directly and are not forwarded to third parties.
 
 
 There is also a version in Russian:
-[rusREAME](https://github.com/christossik333/p2p-protocol/blob/main/rusREADME.md)
+[rusREADME](https://github.com/christossik333/p2p-protocol/blob/main/rusREADME.md)
 
 ## :technologist: Members:
 
