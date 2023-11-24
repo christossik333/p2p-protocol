@@ -1,51 +1,77 @@
-#!/usr/bin/env python3
+#select — waiting for I/O completion
+
 import socket
-from threading import Thread
+import select
+import sys
+#Импорт библиотек
 
-def recv():
-    while True:
-        recv_data = newSocket.recv(1024)
-        recv_msg = recv_data.decode()
-        if recv_msg == 'quit' or 'exit' or 'bye':
-            print('Server has been closed')
-            newSocket.close()
-            break
-        print ('Client>', recv_msg)
+#HEADER - const значение, ЗАГОЛОВОК
+HEADER_LENGTH = 10
+HOST = ('localhost',10000)
 
-def send_msg():
-    while True:
-        msg = input('Server>')
-        if 'quit' or 'exit' or 'bye' in msg: # this part of code doesnt work
-            print('Server has been closed')
-            newSocket.close()
-            break
-        newSocket.send(msg.encode())
+#AF_INET - IP, SOCK_STREAM - TCP
+server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+server.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
 
+server.bind(HOST)
+server.listen()
+print ('I am listening your connections') #создаём сервер и привязываем его к localhost с портом 10000
 
+#sockets_list - информация о текущих сокетах, clients_list - информация о текущих клиентах
+sockets_list = [server]
+clients_list = {}
 
+#Приянтие сообщений от клиента
+def receive_msg(client: socket.socket):
+    try:
+        #считывание длины сообщения (залоговка) для подготовки буфера
+        msg_header = client.recv(HEADER_LENGTH) #msg_header = ЗАГОЛОВОК СООБЩЕНИЯ
+        if not len(msg_header):
+            return False    
+        
+        msg_length = int(msg_header.decode('UTF-8').strip())
+        
+        return {
+            'header': msg_header, #информация о заголовке
+            'data': client.recv(msg_length), #декодируемое сообщение
+        }
 
-
-s = socket.socket(socket.AF_INET, socket.SOCK_STREAM) #create a socket
-s.bind(('192.168.94.213',9490)) # connect socket with port, where he will be waiting for connection #192.168.94.213 is my local ip
-s.listen(20) #how much connections socket will be enter
-print('Chat is running...{}'.format(s.getsockname()))
-
-newSocket, clientAddr = s.accept()
-print('Connect with client {} successfully'.format(newSocket.getpeername()))
-
-thread_recv = Thread (target = recv)
-thread_send = Thread (target = send_msg)
-thread_send.start()
-thread_recv.start()
-thread_send.join()
-thread_recv.join()
-
-newSocket.close()
-
-s.close()
+    except:
+        return False 
 
 
+#Отслеживание входящих подключений
+while True:
+    rs, _, xs = select.select(sockets_list, [] , sockets_list) #сокеты, готовые к чтению/отправке сообщений. 
+    #rs - готовые к отправке, _ - готовые к чтению, xs - диагностика
+    for _socket in rs:
+        if _socket == server:
+            client, addr = server.accept()
+
+            user = receive_msg(client)
+            if user is False:
+                continue
+            sockets_list.append(client)
+            clients_list[client] = user
+
+            print(f'New connection from {addr} with data {user["data"]}')
+
+        else:
+            msg = receive_msg(client)
+            if msg is False: #Если нет сообщения || если в нём нет заголовка, то мы разрываем соединение с пользователем, удаляем его из списка рабочих сокетов и из списка пользователей
+                print (f'Connection from {addr} has been interrupted')
+                sockets_list.remove(_socket)
+                del clients_list[_socket]
+                continue
+            
+            user = clients_list[_socket]
 
 
+            for client in clients_list: #рассылка сообщений если клиент не является сервером
+                if client is not _socket:
+                    client.send(user["header"]+user["data"]+msg["header"]+msg["data"])
 
+        for _socket in xs: #если в сокете ошибка - удаляем
+            sockets_list.remove(_socket)
+            del clients_list[_socket]
 
