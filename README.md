@@ -24,7 +24,6 @@ Client A                Server                Client B
 
  A **Peer-To-Peer** based chat:
 ```
-
             /---->/  
 Client A              Client B 
             \<----\
@@ -37,12 +36,12 @@ All messages come directly and are not forwarded to third parties.
 There is also a version in Russian:
 [rusREAME](https://github.com/christossik333/p2p-protocol/blob/main/rusREADME.md)
 
-## Members:
+## :technologist: Members:
 
-Гвоздев Илья (https://github.com/Kvelmi)
+:shipit: [Гвоздев Илья] (https://github.com/Kvelmi)
 
-Гончарова Кристина (https://github.com/Kristina-lox)
+:shipit: [Гончарова Кристина] (https://github.com/Kristina-lox)
 
-Макерова Марта (https://github.com/maura45773)
+:shipit: [Макерова Марта] (https://github.com/maura45773)
 
-Никитина Кристина (https://github.com/christossik333)
+:shipit: [Никитина Кристина] (https://github.com/christossik333)
