@@ -1,0 +1,96 @@
+
+*{
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+}
+body{
+    padding: 0;
+    margin: 0;
+
+}
+ul,li{
+    display: block;
+}
+header{
+    display: block;
+    margin: 0 auto;
+    width: 100%;
+    height: 10%;
+    text-align: center;
+}
+.containter{
+    width: 1440px;
+    margin: 0 auto;
+}
+.con{
+    display:block;
+    margin: 0 auto;
+    width: 50%;
+    font-family: 'Benzin-Bold';
+    src: local('Benzin-Bold'), url(font/Benzin-Bold.ttf);
+    font-size: 64px;
+    color: #ED643A;
+    text-align: center;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+
+}
+.connect{
+    width:600px;
+    height: 500px;
+    margin: 30px auto;
+    display: flex;
+    flex-wrap: wrap;
+    padding-top: 10%;
+    
+}
+.block{
+    display: flex;
+    flex-wrap: wrap;
+}
+.formc{
+    width:600px;
+    height: 500px;
+    display:block;
+    margin: 30px auto;
+    
+
+}
+.connect_but{
+    display: block;
+    margin-left:auto;
+    margin-top: -90px;
+    background-image: url('/static/icons8-arrow-100.png');
+    background-size: cover;
+    border: none;
+    outline: none;
+    width: 50px;
+    height: 50px;
+    
+}
+.form_con{
+
+    display: flex;
+    flex-wrap: wrap;
+    margin:0 auto;
+    width: 75%;
+    height: 50px;
+    border-radius: 15px;
+    border-style:solid;
+    background: #D9D9D9;
+    font-family: 'Golos text';
+    src: local('Golos text'), url(font/Golos+Text.ttf);
+    font-size: 24px;
+    margin-top: 30px;
+    color: #6A6A6A;
+    outline: none;
+    padding-left: 10px;
+}
+
+
+.input-box{
+    margin: 30px;
+}
+
