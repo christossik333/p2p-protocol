@@ -1,0 +1,31 @@
+<!-- connect.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Connect</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <link rel="icon" type="image/x-icon" href="/static/favicon.png">
+</head>
+<body>
+    <header>
+        <img width="200px" src="/static/nexus.svg">
+    </header>
+    <container>
+    <h1 class="con">Connect To The Chat Room</h1>
+    <form id="connect" action="/connect" method="post">
+        <div class="formc">
+            <!--<div class="input-box">-->
+            <input class="form_con"  type="text" id="host_ip" name="host_ip" placeholder="Enter Host IP">
+            <!--</div>-->
+            <!--<div class="input-box">-->
+            <input type="text" class="form_con" id="username" name="username" placeholder="Enter Username">
+            <!--<</div>-->
+            <input type="image" src="/static/icons8-arrow-100.png" class="connect_but" value="Connect">
+            
+        </div>
+
+    </form>
+</container>
+</body>
+</html>

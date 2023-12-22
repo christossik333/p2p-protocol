@@ -1,0 +1,36 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>P2P Chat</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <h1>Chat Client</h1>
+    {% if connected %}
+        <div id="dialog">
+            <div id="messages">
+                {% for message in messages %}
+                    <p>{{ message }}</p>
+                {% endfor %}
+            </div>
+            <form id="send-message" action="/send" method="post">
+                <input type="text" name="message" placeholder="Type your message...">
+                <button type="submit">Send</button>
+            </form>
+        </div>
+    {% else %}
+        <div id="connect-form">
+            <h2>Connect to Another Client</h2>
+            <form id="connect" action="/connect" method="post">
+                <label for="host_ip">Enter Host IP:</label>
+                <input type="text" id="host_ip" name="host_ip"><br><br>
+                <label for="username">Enter Username:</label>
+                <input type="text" id="username" name="username"><br><br>
+                <input type="submit" value="Connect">
+            </form>
+        </div>
+    {% endif %}
+</body>
+</html>

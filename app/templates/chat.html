@@ -1,0 +1,63 @@
+<!-- chat.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Chat</title>
+    <style>
+        /* Стили для входящих сообщений */
+        .incoming {
+            color: blue;
+        }
+    </style>
+        <link rel="stylesheet" href="{{ url_for('static', filename='styleschat.css') }}">
+        <link rel="icon" type="image/x-icon" href="/static/favicon.png">
+</head>
+<body>
+    <header>
+        <img width="200px" src="/static/nexus.svg">
+    </header>
+    <h1>Chat</h1>
+    <div class="messages">
+        <div id="incoming-messages" class="incoming-messages">
+            
+        </div>
+        <div id="outgoing-messages" class="outgoing-messages">
+        
+        </div>
+    </div>
+    <form id="send-message" action="/send" method="post">
+        <input type="text" name="message" class="typing" placeholder="Type your message...">
+        <button type="submit">Send</button>
+    </form>
+
+    <script>
+        function updateMessages() {
+            fetch('/get_messages')
+                .then(response => response.json())
+                .then(data => {
+                    const incomingMessagesDiv = document.getElementById('incoming-messages');
+                    incomingMessagesDiv.innerHTML = '';
+                    const outgoingMessagesDiv = document.getElementById('outgoing-messages');
+                    outgoingMessagesDiv.innerHTML = '';
+
+                    data.messages.forEach(message => {
+                        if (!message.startsWith('You:')) {
+                            const p = document.createElement('p');
+                            p.classList.add('incoming');
+                            p.textContent = message;
+                            incomingMessagesDiv.appendChild(p);
+                        } else {
+                            const p = document.createElement('p');
+                            p.textContent = message;
+                            outgoingMessagesDiv.appendChild(p);
+                        }
+                    });
+                });
+        }
+
+        setInterval(updateMessages, 1000);
+    </script>
+
+</body>
+</html>
