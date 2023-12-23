@@ -76,7 +76,7 @@ def send(): #Отправка сообщений на сервер
         # Отправка сообщения на сервер
 
         # Маркировка исходящих сообщений
-        #update_messages(f"You: {message.decode('utf-8')}")
+        update_messages(f"You: {message.decode('utf-8')}")
 
     return '', 204 # Возврат пустого ответа
 
