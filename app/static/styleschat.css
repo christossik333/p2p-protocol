@@ -57,7 +57,7 @@ form{
 
 }
 p{
-    min-width: 100px;
+    min-width: 10%;
     max-width: 60%;
     
     max-height: 30%; 
@@ -83,7 +83,7 @@ button{
     display: block;
     margin-left: auto;
     margin-top: -50px;
-    margin-right: 550px;
+    margin-right: 400px;
     background: #ED643A;
     width: 110px;
     height: 50px;
